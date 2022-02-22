@@ -1,36 +1,69 @@
-// create http server by requiring the http object
-const http = require('http')
+// require modules
+const http = require('http');
 const fs = require("fs");
-const path = require('path')
+const path = require('path');
 
 
-// declear port and host name 
-const hostname = '127.0.0.1'
-const port = 3000
+// create port and host  
+const hostname = '127.0.0.1';
+const port = 3000;
 
+// create a http server 
 const server = http.createServer((req, res) => {
+
+    // get the url 
     let url = req.url;
     console.log(url);
 
+    // set content type and status code 
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
+
+    // create routes 
     if(url === "/"){
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'text/plain')
-        res.end('HOME\n')
+        
+        fs.readFile('index.html', 'utf8' , (err, data) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+            // console.log(data);
+            res.end(data);
+        })
+        
     }
     else if(url === "/about"){
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end("ABOUT")
+        
+        fs.readFile('about.html', 'utf8' , (err, data) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+            // console.log(data);
+            res.end(data);
+        })
     }
     else if(url === "/contact"){
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end("CONTACT")
+        
+        fs.readFile('contact-me.html', 'utf8' , (err, data) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+            // console.log(data);
+            res.end(data);
+        })
     }
     else{
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end("404")
+        
+        fs.readFile('404.html', 'utf8' , (err, data) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+            // console.log(data);
+            res.end(data);
+        })
     }
   
 })
